@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma de Titulación - Colegio ICEM</title>
+    <link rel="stylesheet" href="{% static 'estilos.css' %}">
+</head>
+<body>
+
+<aside class="banner-lateral">
+    <div class="contenedor-logo">
+        <img src="{% static 'imagenes/logo_icem_1.png' %}" alt="Logo Colegio ICEM" class="logo">
+    </div>
+
+    <div class="contenido-banner">
+        <h2>Sistema de Titulación</h2>
+        <p>Gestión eficiente y seguimiento formal del egresado.</p>
+    </div>
+
+    <div class="creditos-pie">
+        © 2026 Colegio ICEM. Todos los derechos reservados.
+    </div>
+</aside>
+
+<main class="contenedor-principal">
+
+    <header class="encabezado-panel">
+        <div>
+            <h2>Plataforma de Titulación</h2>
+            <p class="descripcion-seccion">
+                Carga de documentos · Titulación por Experiencia
+            </p>
+        </div>
+
+        <span class="etiqueta-estado">
+            Documentación: {{ total_enviados }} de {{ total_docs }} enviados
+        </span>
+    </header>
+
+    <section class="tarjeta">
+        <h3>Documentos Requeridos</h3>
+
+        <p class="descripcion-seccion">
+            Selecciona los archivos correspondientes a cada documento solicitado.
+            Archivos no mayores a 5 MB. Puedes enviar todos a la vez o completar los pendientes después.
+        </p>
+
+        {% include '_avisos.html' %}
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="grupo-formulario">
+                <label for="caso">
+                    Caso de éxito
+                    <span class="estado-doc {% if estado.caso %}ok{% else %}pendiente{% endif %}">
+                        {% if estado.caso %}✔ Enviado{% else %}Pendiente{% endif %}
+                    </span>
+                </label>
+                <input type="file" id="caso" name="caso">
+            </div>
+
+            <div class="grupo-formulario">
+                <label for="acta">
+                    Acta de nacimiento
+                    <span class="estado-doc {% if estado.acta %}ok{% else %}pendiente{% endif %}">
+                        {% if estado.acta %}✔ Enviado{% else %}Pendiente{% endif %}
+                    </span>
+                </label>
+                <input type="file" id="acta" name="acta">
+            </div>
+
+            <div class="grupo-formulario">
+                <label for="certificado_prepa">
+                    Certificado de preparatoria
+                    <span class="estado-doc {% if estado.certificado_prepa %}ok{% else %}pendiente{% endif %}">
+                        {% if estado.certificado_prepa %}✔ Enviado{% else %}Pendiente{% endif %}
+                    </span>
+                </label>
+                <input type="file" id="certificado_prepa" name="certificado_prepa">
+            </div>
+
+            <div class="grupo-formulario">
+                <label for="curp">
+                    CURP
+                    <span class="estado-doc {% if estado.curp %}ok{% else %}pendiente{% endif %}">
+                        {% if estado.curp %}✔ Enviado{% else %}Pendiente{% endif %}
+                    </span>
+                </label>
+                <input type="file" id="curp" name="curp">
+            </div>
+
+            <div class="grupo-formulario">
+                <label for="ine">
+                    INE
+                    <span class="estado-doc {% if estado.ine %}ok{% else %}pendiente{% endif %}">
+                        {% if estado.ine %}✔ Enviado{% else %}Pendiente{% endif %}
+                    </span>
+                </label>
+                <input type="file" id="ine" name="ine">
+            </div>
+
+            <div class="grupo-formulario">
+                <label for="cv">
+                    Currículum vitae (CV)
+                    <span class="estado-doc {% if estado.cv %}ok{% else %}pendiente{% endif %}">
+                        {% if estado.cv %}✔ Enviado{% else %}Pendiente{% endif %}
+                    </span>
+                </label>
+                <input type="file" id="cv" name="cv">
+            </div>
+
+            <div class="grupo-formulario">
+                <label for="constancia_laboral">
+                    Constancia laboral
+                    <span class="estado-doc {% if estado.constancia_laboral %}ok{% else %}pendiente{% endif %}">
+                        {% if estado.constancia_laboral %}✔ Enviado{% else %}Pendiente{% endif %}
+                    </span>
+                </label>
+                <input type="file" id="constancia_laboral" name="constancia_laboral">
+            </div>
+
+            <div class="grupo-formulario">
+                <label for="comprobante">
+                    Comprobante de domicilio
+                    <span class="estado-doc {% if estado.comprobante %}ok{% else %}pendiente{% endif %}">
+                        {% if estado.comprobante %}✔ Enviado{% else %}Pendiente{% endif %}
+                    </span>
+                </label>
+                <input type="file" id="comprobante" name="comprobante">
+            </div>
+
+            <div class="grupo-formulario">
+                <label for="fotos">
+                    Fotografías
+                    <span class="estado-doc {% if estado.fotos %}ok{% else %}pendiente{% endif %}">
+                        {% if estado.fotos %}✔ Enviado{% else %}Pendiente{% endif %}
+                    </span>
+                </label>
+                <input type="file" id="fotos" name="fotos">
+            </div>
+
+            <div class="grupo-formulario alinear-derecha">
+                <button type="submit" class="boton-secundario">
+                    Enviar documentos
+                </button>
+            </div>
+
+        </form>
+    </section>
+
+</main>
+
+</body>
+</html>

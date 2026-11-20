@@ -1,0 +1,48 @@
+{% extends 'base_coordinacion.html' %}
+
+{% block titulo %}Chat con {{ proceso.nombre }}{% endblock %}
+{% block nav_panel %}activo{% endblock %}
+{% block encabezado %}Chat con el alumno{% endblock %}
+{% block subencabezado %}{{ proceso.nombre }} · Matrícula {{ proceso.matricula }}{% endblock %}
+
+{% block contenido %}
+
+{% include '_pestanas_proceso.html' with activa='chat' %}
+
+<section class="tarjeta">
+    <h3>Conversación</h3>
+
+    <div class="chat-contenedor chat-vista-coordinacion" id="chat">
+        {% for m in mensajes %}
+            {% ifchanged m.fecha %}
+                <div class="separador-fecha">{{ m.fecha }}</div>
+            {% endifchanged %}
+
+            <div class="fila-mensaje mensaje-{{ m.autor }}">
+                <span class="autor-mensaje">
+                    {% if m.autor == 'coordinacion' %}Tú (coordinación){% else %}{{ proceso.nombre }}{% endif %}
+                </span>
+                <div class="burbuja-mensaje">{{ m.texto|linebreaksbr }}</div>
+                <span class="hora-mensaje">{{ m.hora }}</span>
+            </div>
+        {% empty %}
+            <p class="sin-mensajes">Aún no hay mensajes. Escribe el primero para iniciar la conversación.</p>
+        {% endfor %}
+    </div>
+
+    <form method="POST" class="formulario-chat">
+        {% csrf_token %}
+        <textarea name="mensaje" rows="2" placeholder="Escribe un mensaje para el alumno..." required></textarea>
+        <button type="submit" class="boton-principal">Enviar</button>
+    </form>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Mostrar siempre el mensaje más reciente
+    const chat = document.getElementById('chat');
+    if (chat) { chat.scrollTop = chat.scrollHeight; }
+</script>
+{% endblock %}

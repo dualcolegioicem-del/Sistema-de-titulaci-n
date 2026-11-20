@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}Coordinación{% endblock %} - Colegio ICEM</title>
+    <link rel="stylesheet" href="{% static 'estilos.css' %}">
+</head>
+<body>
+
+<aside class="banner-lateral">
+    <div class="contenedor-logo">
+        <img src="{% static 'imagenes/logo_icem_1.png' %}" alt="Logo Colegio ICEM" class="logo">
+    </div>
+
+    <div class="contenido-banner">
+        <h2>Coordinación</h2>
+        <p>Seguimiento y revisión del proceso de titulación de los alumnos.</p>
+
+        <nav class="menu-banner">
+            <a href="{% url 'panel_coordinacion' %}" class="{% block nav_panel %}{% endblock %}">Panel de alumnos</a>
+            <a href="{% url 'cerrar_sesion' %}">Cerrar sesión</a>
+        </nav>
+    </div>
+
+    <div class="creditos-pie">
+        © 2026 Colegio ICEM. Todos los derechos reservados.
+    </div>
+</aside>
+
+<main class="contenedor-principal">
+
+    <header class="encabezado-panel">
+        <div>
+            <h2>{% block encabezado %}Panel de coordinación{% endblock %}</h2>
+            <p class="descripcion-seccion">{% block subencabezado %}{% endblock %}</p>
+        </div>
+        {% block etiqueta %}{% endblock %}
+    </header>
+
+    {% include '_avisos.html' %}
+
+    {% block contenido %}{% endblock %}
+
+</main>
+
+{% block scripts %}{% endblock %}
+</body>
+</html>

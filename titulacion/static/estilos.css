@@ -1,0 +1,1209 @@
+/* =========================================================
+   Sistema de Titulación - Colegio ICEM
+   ========================================================= */
+
+/* ---------- Base ---------- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f4f6f9;
+    color: #333;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ---------- Banner lateral ---------- */
+.banner-lateral {
+    width: 30%;
+    background-color: #3b1d22;
+    color: #ffffff;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.contenedor-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.contenedor-logo img {
+    width: 100%;
+    max-width: 220px;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.contenido-banner h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.contenido-banner p {
+    color: #d1c4c6;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.creditos-pie {
+    font-size: 0.75rem;
+    color: #a89598;
+}
+
+/* ---------- Contenido principal ---------- */
+.contenedor-principal {
+    width: 70%;
+    padding: 40px;
+    overflow-y: auto;
+}
+
+.encabezado-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+}
+
+.encabezado-panel h2 {
+    color: #3b1d22;
+}
+
+.etiqueta-estado {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 6px 14px;
+    border-radius: 15px;
+    font-size: 0.85rem;
+}
+
+/* ---------- Tarjetas ---------- */
+.tarjeta {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+    overflow: hidden;
+}
+
+.tarjeta h3 {
+    font-size: 1.1rem;
+    color: #3b1d22;
+    margin-bottom: 10px;
+}
+
+.tarjeta form {
+    width: 100%;
+}
+
+.descripcion-seccion {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.encabezado-tarjeta-flexible {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* ---------- Formularios ---------- */
+.grupo-formulario {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18px;
+}
+
+.grupo-formulario label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #333333;
+    margin-bottom: 8px;
+}
+
+.grupo-formulario input,
+.grupo-formulario select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background-color: #fafafa;
+    font-size: 0.9rem;
+    outline: none;
+}
+
+.grupo-formulario input:focus,
+.grupo-formulario select:focus {
+    border-color: #f2a900;
+    background-color: #ffffff;
+}
+
+.rejilla-formulario {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.rejilla-formulario .grupo-formulario {
+    margin-bottom: 0;
+}
+
+.ancho-completo {
+    grid-column: span 2;
+}
+
+.alinear-derecha {
+    grid-column: span 2;
+    align-items: flex-end;
+}
+
+/* Campos de archivo */
+.grupo-formulario input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background-color: #fafafa;
+    font-size: 0.85rem;
+    color: #555;
+    cursor: pointer;
+}
+
+.grupo-formulario input[type="file"]:hover {
+    border-color: #f2a900;
+}
+
+.grupo-formulario input[type="file"]::file-selector-button {
+    background-color: #3b1d22;
+    color: #ffffff;
+    border: none;
+    padding: 8px 12px;
+    margin-right: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.grupo-formulario input[type="file"]::file-selector-button:hover {
+    background-color: #512830;
+}
+
+/* ---------- Botones ---------- */
+.boton-principal {
+    display: inline-block;
+    background-color: #3b1d22;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.boton-principal:hover {
+    background-color: #512830;
+}
+
+.boton-secundario {
+    background: transparent;
+    border: 2px solid #f2a900;
+    color: #3b1d22;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.boton-secundario:hover {
+    background-color: #f2a900;
+    color: #fff;
+}
+
+/* ---------- Aviso de envío de documentos (pantalla completa) ---------- */
+.aviso-pantalla {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    animation: aviso-fondo 0.25s ease-out;
+}
+
+.aviso-pantalla.aviso-exito {
+    --aviso-color: #2e7d32;
+    background-color: transparent;
+}
+
+.aviso-pantalla.aviso-error {
+    --aviso-color: #c62828;
+    background-color: transparent;
+}
+
+.aviso-caja {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 560px;
+    padding: 48px 36px 40px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    border-top: 8px solid var(--aviso-color);
+    animation: aviso-caja 0.35s ease-out;
+}
+
+.aviso-icono-grande {
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 24px;
+    border-radius: 50%;
+    background-color: var(--aviso-color);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    font-weight: 700;
+}
+
+.aviso-titulo-pantalla {
+    font-size: 1.7rem;
+    line-height: 1.3;
+    color: var(--aviso-color);
+    margin-bottom: 12px;
+}
+
+.aviso-nota {
+    font-size: 1.05rem;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.aviso-boton {
+    margin-top: 28px;
+    min-width: 180px;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--aviso-color);
+    color: #ffffff;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.aviso-boton:hover {
+    filter: brightness(1.12);
+}
+
+.aviso-boton:focus-visible {
+    outline: 3px solid #f2a900;
+    outline-offset: 3px;
+}
+
+@keyframes aviso-fondo {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes aviso-caja {
+    from { opacity: 0; transform: translateY(16px) scale(0.96); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (max-width: 768px) {
+    .aviso-caja { padding: 36px 22px 30px; }
+    .aviso-icono-grande { width: 76px; height: 76px; font-size: 2.3rem; }
+    .aviso-titulo-pantalla { font-size: 1.35rem; }
+}
+
+/* Etiqueta enviado / pendiente junto a cada documento */
+.estado-doc {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 700;
+}
+
+.estado-doc.ok {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.estado-doc.pendiente {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+/* ---------- Panel de coordinación (inicio_sesion2) ---------- */
+.perfil-alumno {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+}
+
+.avatar-alumno {
+    width: 48px;
+    height: 48px;
+    background-color: #3b1d22;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.informacion-alumno h4 {
+    font-size: 1rem;
+}
+
+.informacion-alumno p {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.titulo-modalidad {
+    color: #3b1d22;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.seccion-progreso {
+    margin-top: 15px;
+}
+
+.seccion-progreso h4 {
+    font-size: 0.9rem;
+    color: #444;
+}
+
+.contenedor-barra-progreso {
+    width: 100%;
+    background-color: #eee;
+    border-radius: 10px;
+    height: 12px;
+    margin: 10px 0 15px 0;
+    overflow: hidden;
+}
+
+.barra-progreso {
+    height: 100%;
+    background-color: #f2a900;
+    transition: width 0.4s ease-in-out;
+}
+
+.lista-etapas {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    font-size: 0.75rem;
+    color: #888;
+    gap: 10px;
+}
+
+.detalle-tarea {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.contenedor-carga {
+    margin-top: 15px;
+}
+
+.entrada-archivo {
+    display: none;
+}
+
+.texto-informacion-archivo {
+    margin-top: 8px;
+    font-size: 0.85rem;
+    color: #2e7d32;
+    font-weight: bold;
+}
+
+/* =========================================================
+   Pantallas del coordinador
+   ========================================================= */
+
+/* Navegación del banner */
+.menu-banner {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 25px;
+}
+
+.menu-banner a {
+    color: #d1c4c6;
+    text-decoration: none;
+    font-size: 0.9rem;
+    padding: 9px 12px;
+    border-radius: 4px;
+}
+
+.menu-banner a:hover,
+.menu-banner a.activo {
+    background-color: #512830;
+    color: #ffffff;
+}
+
+/* Pestañas del expediente */
+.pestanas {
+    display: flex;
+    gap: 6px;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.pestanas a {
+    padding: 10px 16px;
+    text-decoration: none;
+    color: #666;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-bottom: 3px solid transparent;
+}
+
+.pestanas a:hover {
+    color: #3b1d22;
+}
+
+.pestanas a.activa {
+    color: #3b1d22;
+    border-bottom-color: #f2a900;
+}
+
+/* Etapas resaltadas */
+.lista-etapas li.activa {
+    color: #3b1d22;
+    font-weight: bold;
+}
+
+/* Tarjetas de resumen */
+.rejilla-resumen {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.tarjeta-resumen {
+    background: #fff;
+    border-radius: 8px;
+    padding: 18px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+    border-left: 4px solid #f2a900;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.numero-resumen {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #3b1d22;
+}
+
+.texto-resumen {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+/* Filtros */
+.filtros {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.filtros input,
+.filtros select {
+    padding: 9px 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background-color: #fafafa;
+    font-size: 0.85rem;
+    outline: none;
+}
+
+.filtros input {
+    flex: 1;
+    min-width: 200px;
+}
+
+.filtros input:focus,
+.filtros select:focus {
+    border-color: #f2a900;
+    background-color: #ffffff;
+}
+
+/* Tablas */
+.tabla-contenedor {
+    overflow-x: auto;
+}
+
+.tabla {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+.tabla th {
+    text-align: left;
+    padding: 10px 12px;
+    background-color: #f4f6f9;
+    color: #3b1d22;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.tabla td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    vertical-align: top;
+    color: #444;
+}
+
+.tabla small {
+    color: #888;
+}
+
+.tabla a {
+    color: #3b1d22;
+    font-weight: 600;
+}
+
+.acciones-fila {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.acciones-fila a {
+    text-decoration: none;
+    font-size: 0.8rem;
+    color: #3b1d22;
+    border-bottom: 2px solid #f2a900;
+}
+
+/* Barra de avance pequeña (tabla) */
+.barra-mini {
+    width: 110px;
+    height: 8px;
+    background-color: #eee;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 3px;
+}
+
+.barra-mini div {
+    height: 100%;
+    background-color: #f2a900;
+}
+
+/* Insignias de estado */
+.badge {
+    display: inline-block;
+    padding: 3px 11px;
+    border-radius: 12px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    background-color: #eee;
+    color: #555;
+}
+
+.badge-pendiente,
+.badge-en-proceso {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.badge-aprobado,
+.badge-completado,
+.badge-titulado {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.badge-rechazado {
+    background-color: #fdecea;
+    color: #c62828;
+}
+
+/* Revisión de documentos */
+.form-revision {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 220px;
+}
+
+.form-revision input[type="text"] {
+    padding: 7px 9px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background-color: #fafafa;
+    font-size: 0.8rem;
+    outline: none;
+}
+
+.form-revision input[type="text"]:focus {
+    border-color: #f2a900;
+    background-color: #fff;
+}
+
+.boton-aprobar,
+.boton-rechazar {
+    border: none;
+    color: #fff;
+    padding: 7px 14px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.boton-aprobar {
+    background-color: #2e7d32;
+}
+
+.boton-aprobar:hover {
+    background-color: #256628;
+}
+
+.boton-rechazar {
+    background-color: #c62828;
+}
+
+.boton-rechazar:hover {
+    background-color: #a31f1f;
+}
+
+/* Textarea en formularios */
+.grupo-formulario textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background-color: #fafafa;
+    font-size: 0.9rem;
+    font-family: inherit;
+    resize: vertical;
+    outline: none;
+}
+
+.grupo-formulario textarea:focus {
+    border-color: #f2a900;
+    background-color: #ffffff;
+}
+
+/* Historial de seguimiento */
+.linea-tiempo {
+    list-style: none;
+    border-left: 3px solid #f2a900;
+    margin-left: 6px;
+    padding-left: 18px;
+}
+
+.linea-tiempo li {
+    margin-bottom: 18px;
+    font-size: 0.88rem;
+    color: #444;
+}
+
+.linea-tiempo .fecha-tiempo {
+    display: block;
+    font-size: 0.72rem;
+    color: #888;
+    margin-bottom: 2px;
+}
+
+.linea-tiempo p {
+    margin: 4px 0;
+}
+
+.linea-tiempo small {
+    color: #888;
+}
+
+/* Nota de documentos pendientes (pantalla de documentos del coordinador) */
+.nota-advertencia {
+    background-color: #fff3cd;
+    border-left: 5px solid #f2a900;
+    color: #856404;
+    padding: 14px 18px;
+    border-radius: 6px;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.nota-advertencia ul {
+    margin: 6px 0 0 20px;
+}
+
+/* =========================================================
+   Páginas que no he visto (conservadas tal cual).
+   Si ya no existen, puedes borrar el bloque completo.
+   ========================================================= */
+
+/* ---------- Pantalla de inicio de sesión ---------- */
+.contenido-centrado {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tarjeta-inicio-sesion {
+    width: 100%;
+    max-width: 500px;
+}
+
+.tarjeta-inicio-sesion h3 {
+    font-size: 1.5rem;
+    color: #222222;
+    margin-bottom: 6px;
+    font-weight: 700;
+}
+
+.subtitulo-inicio-sesion {
+    color: #666666;
+    font-size: 0.85rem;
+    margin-bottom: 25px;
+    line-height: 1.3;
+}
+
+.contenedor-olvido {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.enlace-olvido {
+    font-size: 0.8rem;
+    color: #222222;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.boton-enviar {
+    width: 100%;
+    padding: 12px;
+    background-color: #f2a900;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.boton-enviar:hover {
+    background-color: #d99700;
+}
+
+.pie-soporte {
+    margin-top: 30px;
+    font-size: 0.8rem;
+    color: #666666;
+}
+
+.pie-soporte a {
+    color: #f2a900;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+/* ---------- Selección de modalidad ---------- */
+.tarjeta-modalidad {
+    max-width: 750px;
+    width: 100%;
+}
+
+.tarjeta-modalidad .boton-enviar {
+    max-width: 180px;
+}
+
+.opcion-modalidad {
+    background-color: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 15px;
+    margin-bottom: 12px;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+
+.opcion-modalidad:hover {
+    border-color: #f2a900;
+    background-color: #fffdf7;
+}
+
+.opcion-modalidad label {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.opcion-modalidad input[type="radio"] {
+    width: auto;
+    margin-top: 4px;
+    accent-color: #3b1d22;
+}
+
+.opcion-modalidad span {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.opcion-modalidad strong {
+    color: #3b1d22;
+    font-size: 0.95rem;
+}
+
+.opcion-modalidad small {
+    color: #666;
+    font-size: 0.82rem;
+    line-height: 1.4;
+}
+
+/* ---------- Chat alumno / coordinación ---------- */
+.chat-contenedor {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-height: 480px;
+    overflow-y: auto;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #f4f6f9;
+    border-radius: 8px;
+}
+
+.fila-mensaje {
+    display: flex;
+    flex-direction: column;
+    max-width: 70%;
+}
+
+.fila-mensaje.mensaje-alumno {
+    align-self: flex-end;
+    align-items: flex-end;
+}
+
+.fila-mensaje.mensaje-coordinacion {
+    align-self: flex-start;
+    align-items: flex-start;
+}
+
+.autor-mensaje {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #888;
+    margin-bottom: 4px;
+    padding: 0 4px;
+}
+
+.burbuja-mensaje {
+    padding: 10px 14px;
+    border-radius: 8px;
+    line-height: 1.4;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+}
+
+.mensaje-alumno .burbuja-mensaje {
+    background-color: #3b1d22;
+    color: #ffffff;
+    border-radius: 8px 8px 2px 8px;
+}
+
+.mensaje-coordinacion .burbuja-mensaje {
+    background-color: #ffffff;
+    color: #333;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px 8px 8px 2px;
+}
+
+.hora-mensaje {
+    font-size: 0.7rem;
+    color: #888;
+    margin-top: 4px;
+    padding: 0 4px;
+}
+
+.separador-fecha {
+    text-align: center;
+    font-size: 0.75rem;
+    color: #888;
+    margin: 6px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.estado-en-linea {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.punto-en-linea {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #2e7d32;
+    display: inline-block;
+}
+
+.formulario-chat {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+.formulario-chat textarea {
+    flex: 1;
+    resize: none;
+    min-height: 44px;
+    max-height: 120px;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background-color: #fafafa;
+    font-family: inherit;
+    font-size: 0.9rem;
+    outline: none;
+}
+
+.formulario-chat textarea:focus {
+    border-color: #f2a900;
+    background-color: #ffffff;
+}
+
+.formulario-chat .boton-principal {
+    flex-shrink: 0;
+    padding: 12px 20px;
+}
+
+.sin-mensajes {
+    text-align: center;
+    color: #888;
+    padding: 40px 0;
+    font-size: 0.9rem;
+}
+
+/* Chat: en la vista del coordinador los mensajes propios van a la derecha */
+.chat-vista-coordinacion .fila-mensaje.mensaje-coordinacion {
+    align-self: flex-end;
+    align-items: flex-end;
+}
+
+.chat-vista-coordinacion .fila-mensaje.mensaje-alumno {
+    align-self: flex-start;
+    align-items: flex-start;
+}
+
+.chat-vista-coordinacion .mensaje-coordinacion .burbuja-mensaje {
+    background-color: #3b1d22;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px 8px 2px 8px;
+}
+
+.chat-vista-coordinacion .mensaje-alumno .burbuja-mensaje {
+    background-color: #ffffff;
+    color: #333;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px 8px 8px 2px;
+}
+
+/* =========================================================
+   Responsive (un solo bloque para toda la hoja)
+   ========================================================= */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+
+    .banner-lateral,
+    .contenedor-principal {
+        width: 100%;
+    }
+
+    .banner-lateral {
+        min-height: 250px;
+        padding: 30px;
+    }
+
+    .contenedor-principal {
+        padding: 25px;
+    }
+
+    .encabezado-panel {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .rejilla-formulario {
+        grid-template-columns: 1fr;
+    }
+
+    .ancho-completo,
+    .alinear-derecha {
+        grid-column: span 1;
+    }
+
+    .lista-etapas {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .grupo-formulario input[type="file"] {
+        font-size: 0.8rem;
+    }
+
+    .grupo-formulario input[type="file"]::file-selector-button {
+        padding: 7px 10px;
+        font-size: 0.8rem;
+    }
+
+    .tarjeta-modalidad {
+        max-width: 100%;
+    }
+
+    .opcion-modalidad {
+        padding: 12px;
+    }
+
+    .fila-mensaje {
+        max-width: 88%;
+    }
+
+    .formulario-chat {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .formulario-chat .boton-principal {
+        width: 100%;
+    }
+
+    .rejilla-resumen {
+        grid-template-columns: 1fr;
+    }
+
+    .menu-banner {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}
+
+/* =========================================================
+   Seguimiento del alumno (pegar en estilos.css, antes del @media)
+   ========================================================= */
+
+/* Mensajes (Django messages: success, error, warning, info) */
+.nota-success,
+.nota-error,
+.nota-warning,
+.nota-info {
+    padding: 14px 18px;
+    border-radius: 6px;
+    border-left: 5px solid;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.nota-success {
+    background-color: #e8f5e9;
+    border-color: #2e7d32;
+    color: #1b5e20;
+}
+
+.nota-error {
+    background-color: #fdecea;
+    border-color: #c62828;
+    color: #8e1b1b;
+}
+
+.nota-warning {
+    background-color: #fff3cd;
+    border-color: #f2a900;
+    color: #856404;
+}
+
+.nota-info {
+    background-color: #f4f6f9;
+    border-color: #3b1d22;
+    color: #3b1d22;
+}
+
+/* Documento rechazado resaltado en la tabla */
+.fila-rechazada td {
+    background-color: #fff8f7;
+}
+
+/* Volver a subir un documento */
+.form-reenvio {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 230px;
+}
+
+.form-reenvio input[type="file"] {
+    width: 100%;
+    padding: 6px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background-color: #fafafa;
+    font-size: 0.78rem;
+    color: #555;
+    cursor: pointer;
+}
+
+.form-reenvio input[type="file"]::file-selector-button {
+    background-color: #3b1d22;
+    color: #ffffff;
+    border: none;
+    padding: 6px 10px;
+    margin-right: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.form-reenvio .boton-secundario {
+    align-self: flex-start;
+}

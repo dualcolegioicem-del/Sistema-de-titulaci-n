@@ -1,0 +1,88 @@
+{% extends 'base_coordinacion.html' %}
+
+{% block titulo %}Panel de alumnos{% endblock %}
+{% block nav_panel %}activo{% endblock %}
+{% block encabezado %}Panel de alumnos{% endblock %}
+{% block subencabezado %}Procesos de titulación registrados en el sistema{% endblock %}
+
+{% block etiqueta %}
+<span class="etiqueta-estado">{{ resumen.total }} proceso{{ resumen.total|pluralize }}</span>
+{% endblock %}
+
+{% block contenido %}
+
+<section class="rejilla-resumen">
+    <div class="tarjeta-resumen">
+        <span class="numero-resumen">{{ resumen.total }}</span>
+        <span class="texto-resumen">Procesos en total</span>
+    </div>
+    <div class="tarjeta-resumen">
+        <span class="numero-resumen">{{ resumen.por_revisar }}</span>
+        <span class="texto-resumen">Documentos por revisar</span>
+    </div>
+    <div class="tarjeta-resumen">
+        <span class="numero-resumen">{{ resumen.completados }}</span>
+        <span class="texto-resumen">Procesos completados</span>
+    </div>
+</section>
+
+<section class="tarjeta">
+    <div class="encabezado-tarjeta-flexible">
+        <h3>Alumnos en proceso</h3>
+        <a href="{% url 'registrar_alumno' %}" class="boton-principal" style="text-decoration: none;">+ Registrar alumno</a>
+    </div>
+
+    <form method="GET" class="filtros">
+        <input type="text" name="q" value="{{ q }}" placeholder="Buscar por nombre o matrícula">
+        <select name="estado">
+            <option value="">Todos los estados</option>
+            {% for e in estados %}
+                <option value="{{ e }}" {% if e == estado_filtro %}selected{% endif %}>{{ e|capfirst }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="boton-secundario">Filtrar</button>
+    </form>
+
+    <div class="tabla-contenedor">
+        <table class="tabla">
+            <thead>
+                <tr>
+                    <th>Alumno</th>
+                    <th>Modalidad</th>
+                    <th>Avance</th>
+                    <th>Documentos</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in procesos %}
+                <tr>
+                    <td>
+                        <strong>{{ p.nombre }}</strong><br>
+                        <small>Matrícula: {{ p.matricula }}</small>
+                    </td>
+                    <td>{{ p.modalidad }}</td>
+                    <td>
+                        <div class="barra-mini"><div style="width: {{ p.porcentaje }}%;"></div></div>
+                        <small>{{ p.porcentaje }}%</small>
+                    </td>
+                    <td>{{ p.docs_enviados }} / {{ p.docs_total }}</td>
+                    <td><span class="badge badge-{{ p.estado|slugify }}">{{ p.estado|capfirst }}</span></td>
+                    <td class="acciones-fila">
+                        <a href="{% url 'detalle_proceso' p.id %}">Expediente</a>
+                        <a href="{% url 'ver_documentos' p.id %}">Documentos</a>
+                        <a href="{% url 'chat_coordinacion' p.id %}">Chat</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="sin-mensajes">No hay procesos que coincidan con la búsqueda.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+
+{% endblock %}

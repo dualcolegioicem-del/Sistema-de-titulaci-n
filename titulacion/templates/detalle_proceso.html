@@ -1,0 +1,94 @@
+{% extends 'base_coordinacion.html' %}
+
+{% block titulo %}Expediente de {{ proceso.nombre }}{% endblock %}
+{% block nav_panel %}activo{% endblock %}
+{% block encabezado %}Expediente del alumno{% endblock %}
+{% block subencabezado %}Consulta el avance y registra el seguimiento del proceso{% endblock %}
+
+{% block etiqueta %}
+<span class="etiqueta-estado">Estatus: <strong>{{ proceso.estado|capfirst }}</strong></span>
+{% endblock %}
+
+{% block contenido %}
+
+{% include '_pestanas_proceso.html' with activa='expediente' %}
+
+<section class="perfil-alumno">
+    <div class="avatar-alumno">{{ proceso.iniciales|default:"--" }}</div>
+    <div class="informacion-alumno">
+        <h4>{{ proceso.nombre }}</h4>
+        <p>Matrícula: {{ proceso.matricula }}{% if proceso.correo %} · {{ proceso.correo }}{% endif %}</p>
+    </div>
+</section>
+
+<section class="tarjeta">
+    <div class="encabezado-tarjeta-flexible">
+        <h3>Modalidad</h3>
+        <a href="{% url 'ver_documentos' proceso.id %}" class="boton-secundario">Ver documentación</a>
+    </div>
+    <p class="titulo-modalidad">{{ proceso.modalidad }}</p>
+
+    <div class="seccion-progreso">
+        <h4>Progreso del proceso ({{ proceso.porcentaje }}%)</h4>
+        <div class="contenedor-barra-progreso">
+            <div class="barra-progreso" style="width: {{ proceso.porcentaje }}%;"></div>
+        </div>
+
+        <ul class="lista-etapas">
+            {% for e in etapas %}
+                <li class="{% if e.numero <= proceso.etapa %}activa{% endif %}">{{ e.numero }}. {{ e.nombre }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+
+<section class="tarjeta">
+    <h3>Registrar avance</h3>
+    <p class="descripcion-seccion">
+        Actualiza la etapa del alumno y deja un comentario. Quedará guardado en el historial.
+    </p>
+
+    <form method="POST" class="rejilla-formulario">
+        {% csrf_token %}
+
+        <div class="grupo-formulario ancho-completo">
+            <label for="etapa">Etapa actual del proceso</label>
+            <select id="etapa" name="etapa" required>
+                {% for e in etapas %}
+                    <option value="{{ e.numero }}" {% if e.numero == proceso.etapa %}selected{% endif %}>
+                        {{ e.numero }}. {{ e.nombre }} ({{ e.porcentaje }}%)
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="grupo-formulario ancho-completo">
+            <label for="comentario">Comentario / indicaciones para el alumno</label>
+            <textarea id="comentario" name="comentario" rows="4" required
+                      placeholder="Ej. Se validó la documentación, pasa a dictamen."></textarea>
+        </div>
+
+        <div class="grupo-formulario alinear-derecha">
+            <button type="submit" class="boton-secundario">Guardar avance</button>
+        </div>
+    </form>
+</section>
+
+<section class="tarjeta">
+    <h3>Historial de seguimiento</h3>
+
+    <ul class="linea-tiempo">
+        {% for h in historial %}
+        <li>
+            <span class="fecha-tiempo">{{ h.fecha }}</span>
+            <strong>{{ h.etapa }}</strong>
+            {% if h.comentario %}<p>{{ h.comentario }}</p>{% endif %}
+            {% if h.autor %}<small>Registrado por {{ h.autor }}</small>{% endif %}
+        </li>
+        {% empty %}
+        <li class="sin-mensajes">Aún no hay avances registrados.</li>
+        {% endfor %}
+    </ul>
+</section>
+
+{% endblock %}

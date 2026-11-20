@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Plataforma de Titulación - Colegio ICEM</title>
+    <link rel="stylesheet" href="{% static 'estilos.css' %}">
+</head>
+<body>
+
+<aside class="banner-lateral">
+    <div class="contenedor-logo">
+        <img src="{% static 'imagenes/logo_icem_1.png' %}" alt="Logo Colegio ICEM" class="logo">
+        </div>
+    </div>
+
+    <div class="contenido-banner">
+        <h2>Sistema de Titulación</h2>
+        <p>Gestión eficiente y seguimiento formal del egresado.</p>
+    </div>
+
+    <div class="creditos-pie">
+        © 2026 Colegio ICEM. Todos los derechos reservados.
+    </div>
+</aside>
+
+<main class="contenedor-principal contenido-centrado">
+
+    <section class="tarjeta tarjeta-modalidad">
+        <h3>Plataforma de Titulación</h3>
+
+        <p class="descripcion-seccion">
+            Selecciona tu modalidad de titulación
+        </p>
+
+        <form method="POST" action="{% url 'modalidad' %}">
+            {% csrf_token %}
+
+            <div class="grupo-formulario opcion-modalidad">
+                <label>
+                    <input type="radio" name="modalidad" value="directa" required>
+                    <span>
+                        <strong>Titulación directa</strong>
+                        <p>
+                            Dirigida a egresados que concluyeron sus estudios y se encuentran pendientes de obtener su título profesional.
+                        </p>
+                    </span>
+                </label>
+            </div>
+
+            <div class="grupo-formulario opcion-modalidad">
+                <label>
+                    <input type="radio" name="modalidad" value="experiencia">
+                    <span>
+                        <strong>Titulación por experiencia</strong>
+                        <p>
+                            Requiere la presentación de un currículum vitae que acredite un mínimo de cinco años de experiencia laboral en el área correspondiente a la carrera.
+                        </p>
+                    </span>
+                </label>
+            </div>
+
+            <div class="grupo-formulario opcion-modalidad">
+                <label>
+                    <input type="radio" name="modalidad" value="proyecto">
+                    <span>
+                        <strong>Titulación por proyecto</strong>
+                        <p>
+                            Requiere la presentación de un currículum vitae con un mínimo de cinco años de experiencia, así como el desarrollo de un proyecto vinculado a la carrera profesional.
+                        </p>
+                    </span>
+                </label>
+            </div>
+
+            <div class="grupo-formulario alinear-derecha">
+                <button type="submit" class="boton-enviar">
+                    Continuar
+                </button>
+            </div>
+
+        </form>
+    </section>
+
+</main>
+
+</body>
+</html>
+

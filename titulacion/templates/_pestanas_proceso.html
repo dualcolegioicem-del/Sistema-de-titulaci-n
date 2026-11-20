@@ -1,0 +1,6 @@
+<nav class="pestanas">
+    <a href="{% url 'detalle_proceso' proceso.id %}" class="{% if activa == 'expediente' %}activa{% endif %}">Expediente y avance</a>
+    <a href="{% url 'ver_documentos' proceso.id %}" class="{% if activa == 'documentos' %}activa{% endif %}">Documentos</a>
+    <a href="{% url 'chat_coordinacion' proceso.id %}" class="{% if activa == 'chat' %}activa{% endif %}">Chat con el alumno</a>
+    <a href="{% url 'registrar_alumno' %}" class="{% if activa == 'registrar' %}activa{% endif %}">Registrar alumno</a>
+</nav>

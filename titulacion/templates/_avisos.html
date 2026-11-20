@@ -1,0 +1,31 @@
+{% if exito or advertencia or error %}
+<div class="aviso-pantalla {% if exito %}aviso-exito{% else %}aviso-error{% endif %}"
+     id="aviso-documentos" role="alertdialog" aria-modal="true" aria-labelledby="aviso-titulo-pantalla">
+
+    <div class="aviso-caja">
+        <div class="aviso-icono-grande" aria-hidden="true">{% if exito %}✔{% else %}✖{% endif %}</div>
+
+        <h2 class="aviso-titulo-pantalla" id="aviso-titulo-pantalla">
+            {% if exito %}{{ exito }}{% elif advertencia %}{{ advertencia }}{% else %}{{ error }}{% endif %}
+        </h2>
+
+        {% if faltantes or rechazados %}
+            <p class="aviso-nota">Algunos documentos no se subieron.</p>
+        {% endif %}
+
+        <button type="button" class="aviso-boton" id="aviso-aceptar" autofocus>Aceptar</button>
+    </div>
+</div>
+
+<script>
+(function () {
+    var aviso = document.getElementById('aviso-documentos');
+    if (!aviso) return;
+    function cerrar() { aviso.remove(); document.removeEventListener('keydown', alTeclear); }
+    function alTeclear(e) { if (e.key === 'Escape') cerrar(); }
+    document.getElementById('aviso-aceptar').addEventListener('click', cerrar);
+    aviso.addEventListener('click', function (e) { if (e.target === aviso) cerrar(); });
+    document.addEventListener('keydown', alTeclear);
+})();
+</script>
+{% endif %}
