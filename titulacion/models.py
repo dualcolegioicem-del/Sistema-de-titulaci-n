@@ -151,7 +151,6 @@ class Usuario(models.Model):
         db_table = 'usuario'
 
 
-# Esta tabla hay que crearla a mano en MySQL (ver el CREATE TABLE de `mensajes_proceso`)
 class MensajesProceso(models.Model):
     id_mensaje = models.AutoField(primary_key=True)
     id_proceso_titulacion = models.ForeignKey('ProcesosTitulacion', models.DO_NOTHING, db_column='id_proceso_titulacion')

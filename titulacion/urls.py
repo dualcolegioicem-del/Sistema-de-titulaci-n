@@ -17,7 +17,7 @@ urlpatterns = [
     path('registrar-alumno/', views.registrar_alumno, name='registrar_alumno'),
 ]
 
-# Para que los enlaces {{ d.url }} abran los archivos subidos (solo en desarrollo)
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

@@ -628,12 +628,12 @@ def seguimiento(request):
     if not proceso:
         return redirect('modalidad')
 
-    # Si aún faltan documentos por subir, primero se completan
+
     if not _docs_completos(proceso):
         clave = _clave_modalidad(proceso.id_modalidad.nombre_modalidad)
         return redirect('documentos', tipo=clave) if clave else redirect('modalidad')
 
-    # El alumno envía un mensaje al coordinador desde esta misma pantalla
+
     if request.method == 'POST':
         texto = request.POST.get('mensaje', '').strip()
         if texto:
@@ -648,7 +648,7 @@ def seguimiento(request):
     p, datos = _datos_un_proceso(proceso.pk)
     etapas = etapas_de(datos['modalidad'])
 
-    # Documentos con su estado y la última observación del coordinador
+
     fs = FileSystemStorage()
     registros = list(
         DocumentosAlumno.objects
@@ -672,7 +672,6 @@ def seguimiento(request):
             'url': fs.url(d.ruta_archivo) if d.ruta_archivo else '',
             'fecha': _formato(d.fecha_subida),
             'estado': estado,
-            # La observación solo aplica a la última revisión, no a un archivo recién resubido
             'observacion': ultima_observacion.get(d.pk, '') if estado != 'pendiente' else '',
             'puede_reenviar': estado == 'rechazado',
         })
@@ -683,7 +682,7 @@ def seguimiento(request):
         'rechazados': sum(1 for d in documentos_lista if d['estado'] == 'rechazado'),
     }
 
-    # Comentarios que dejó el coordinador al registrar avances
+
     avances = list(
         SeguimientoTitulacion.objects
         .filter(id_proceso_titulacion=p)
@@ -704,7 +703,7 @@ def seguimiento(request):
         for a in avances
     ]
 
-    # Chat con el coordinador (mismos mensajes que ve la vista chat_coordinacion)
+
     mensajes = [
         {
             'autor': m.autor,
