@@ -42,6 +42,68 @@
 {% block scripts %}
 <script>
     const chat = document.getElementById('chat');
-    if (chat) { chat.scrollTop = chat.scrollHeight; }
+    const URL_MENSAJES = "{% url 'chat_mensajes_coordinacion' proceso.id %}";
+    const NOMBRE_ALUMNO = "{{ proceso.nombre|escapejs }}";
+    let ultimoId = null;
+
+    function pintar(mensajes) {
+        chat.innerHTML = '';
+        if (mensajes.length === 0) {
+            const vacio = document.createElement('p');
+            vacio.className = 'sin-mensajes';
+            vacio.textContent = 'Aún no hay mensajes. Escribe el primero para iniciar la conversación.';
+            chat.appendChild(vacio);
+            return;
+        }
+        let fechaAnterior = null;
+        mensajes.forEach(function (m) {
+            if (m.fecha !== fechaAnterior) {
+                const sep = document.createElement('div');
+                sep.className = 'separador-fecha';
+                sep.textContent = m.fecha;
+                chat.appendChild(sep);
+                fechaAnterior = m.fecha;
+            }
+            const fila = document.createElement('div');
+            fila.className = 'fila-mensaje mensaje-' + m.autor;
+
+            const autor = document.createElement('span');
+            autor.className = 'autor-mensaje';
+            autor.textContent = m.autor === 'coordinacion' ? 'Tú (coordinación)' : NOMBRE_ALUMNO;
+
+            const burbuja = document.createElement('div');
+            burbuja.className = 'burbuja-mensaje';
+            burbuja.textContent = m.texto;
+            burbuja.style.whiteSpace = 'pre-wrap';
+
+            const hora = document.createElement('span');
+            hora.className = 'hora-mensaje';
+            hora.textContent = m.hora;
+
+            fila.append(autor, burbuja, hora);
+            chat.appendChild(fila);
+        });
+    }
+
+    async function actualizar() {
+        if (document.hidden) return;
+        try {
+            const resp = await fetch(URL_MENSAJES, { headers: { 'X-Requested-With': 'fetch' } });
+            if (resp.status === 403) { window.location.href = "{% url 'inicio' %}"; return; }
+            if (!resp.ok) return;
+            const datos = await resp.json();
+            const nuevoId = datos.mensajes.length ? datos.mensajes[datos.mensajes.length - 1].id : 0;
+            if (nuevoId === ultimoId) return;
+
+            const alFinal = chat.scrollHeight - chat.scrollTop - chat.clientHeight < 60;
+            pintar(datos.mensajes);
+            if (alFinal || ultimoId === null) chat.scrollTop = chat.scrollHeight;
+            ultimoId = nuevoId;
+        } catch (e) { /* sin conexión: reintenta en el siguiente ciclo */ }
+    }
+
+    chat.scrollTop = chat.scrollHeight;
+    actualizar();
+    setInterval(actualizar, 3000);
 </script>
 {% endblock %}

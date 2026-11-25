@@ -10,10 +10,12 @@ urlpatterns = [
     path('documentos/<str:tipo>/', views.documentos, name='documentos'),
     path('seguimiento/', views.seguimiento, name='seguimiento'),
     path('seguimiento/reenviar/', views.reenviar_documento, name='reenviar_documento'),
+    path('seguimiento/mensajes/', views.chat_mensajes_alumno, name='chat_mensajes_alumno'),
     path('documentos-alumno/<int:id_proceso>/', views.ver_documentos, name='ver_documentos'),
     path('panel-coordinacion/', views.panel_coordinacion, name='panel_coordinacion'),
     path('proceso/<int:id_proceso>/', views.detalle_proceso, name='detalle_proceso'),
     path('chat-coordinacion/<int:id_proceso>/', views.chat_coordinacion, name='chat_coordinacion'),
+    path('chat-coordinacion/<int:id_proceso>/mensajes/', views.chat_mensajes_coordinacion, name='chat_mensajes_coordinacion'),
     path('registrar-alumno/', views.registrar_alumno, name='registrar_alumno'),
 ]
 

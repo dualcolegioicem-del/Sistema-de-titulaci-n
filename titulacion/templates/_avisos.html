@@ -13,6 +13,11 @@
             <p class="aviso-nota">Algunos documentos no se subieron.</p>
         {% endif %}
 
+        {% if rechazados %}
+            <p class="aviso-nota">No se subieron por tamaño: {{ rechazados|join:", " }}</p>
+        {% endif %}
+
+
         <button type="button" class="aviso-boton" id="aviso-aceptar" autofocus>Aceptar</button>
     </div>
 </div>

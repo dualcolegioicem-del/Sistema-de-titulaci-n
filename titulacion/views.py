@@ -4,6 +4,7 @@ from django.core.files.storage import FileSystemStorage
 from django.core.validators import validate_email
 from django.db import transaction
 from django.db.models import Count, Q
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.utils import timezone
@@ -90,7 +91,6 @@ def etapas_de(modalidad):
     ]
 
 
-# Nombres de etapa de todas las modalidades, sin repetir y en orden (para el filtro del panel)
 TODOS_LOS_ESTADOS = list(dict.fromkeys(n for lista in NOMBRES_ETAPAS.values() for n in lista))
 
 
@@ -211,7 +211,24 @@ def _docs_completos(proceso):
     return all(nombre in enviados for nombre in DOCS[clave].values())
 
 
+def _redirigir_segun_usuario(request):
+    tipo = request.session.get('tipo_usuario')
+    if tipo == 'empleado':
+        return redirect('panel_coordinacion')
+    if tipo == 'alumno':
+        proceso = _proceso_del_alumno(request)
+        if proceso and _docs_completos(proceso):
+            return redirect('seguimiento')
+        return redirect('modalidad')
+    return None
+
+
 def inicio(request):
+    if request.session.get('id_usuario') and request.method == 'GET':
+        destino = _redirigir_segun_usuario(request)
+        if destino:
+            return destino
+
     if request.method == 'POST':
         dato = request.POST.get('usuario', '').strip()
         password = request.POST.get('password', '')
@@ -226,14 +243,8 @@ def inicio(request):
 
             request.session['id_usuario'] = usuario.id_usuario
             request.session['tipo_usuario'] = tipo
-            request.session.pop('id_proceso', None)  
-            if tipo == 'empleado':
-                return redirect('panel_coordinacion')
-
-            proceso = _proceso_del_alumno(request)
-            if proceso and _docs_completos(proceso):
-                return redirect('seguimiento')
-            return redirect('modalidad')
+            request.session.pop('id_proceso', None)
+            return _redirigir_segun_usuario(request)
 
         return render(request, 'inicio_sesion1.html', {'error': 'Credenciales incorrectas'})
 
@@ -764,3 +775,35 @@ def reenviar_documento(request):
         )
 
     return redirect('seguimiento')
+
+
+def _mensajes_json(proceso):
+    """Mensajes de un proceso en formato JSON, para el chat en vivo."""
+    return [
+        {
+            'id': m.pk,
+            'autor': m.autor,
+            'texto': m.texto,
+            'fecha': _formato(m.fecha, '%d/%m/%Y'),
+            'hora': _formato(m.fecha, '%H:%M'),
+        }
+        for m in MensajesProceso.objects.filter(id_proceso_titulacion=proceso).order_by('fecha', 'pk')
+    ]
+
+
+def chat_mensajes_coordinacion(request, id_proceso):
+    """Devuelve los mensajes del proceso (lo consulta el chat de coordinación)."""
+    if request.session.get('tipo_usuario') != 'empleado':
+        return JsonResponse({'error': 'sin sesion'}, status=403)
+    p = get_object_or_404(ProcesosTitulacion, pk=id_proceso)
+    return JsonResponse({'mensajes': _mensajes_json(p)})
+
+
+def chat_mensajes_alumno(request):
+    """Devuelve los mensajes del proceso del alumno en sesión."""
+    if request.session.get('tipo_usuario') != 'alumno':
+        return JsonResponse({'error': 'sin sesion'}, status=403)
+    proceso = _proceso_del_alumno(request)
+    if not proceso:
+        return JsonResponse({'error': 'sin proceso'}, status=404)
+    return JsonResponse({'mensajes': _mensajes_json(proceso)})
