@@ -1,8 +1,3 @@
-/* =========================================================
-   Sistema de Titulación - Colegio ICEM
-   ========================================================= */
-
-/* ---------- Base ---------- */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -15,9 +10,9 @@ body {
     color: #333;
     display: flex;
     min-height: 100vh;
+    min-height: 100dvh;
 }
 
-/* ---------- Banner lateral ---------- */
 .banner-lateral {
     width: 30%;
     background-color: #3b1d22;
@@ -60,7 +55,6 @@ body {
     color: #a89598;
 }
 
-/* ---------- Contenido principal ---------- */
 .contenedor-principal {
     width: 70%;
     padding: 40px;
@@ -88,7 +82,6 @@ body {
     font-size: 0.85rem;
 }
 
-/* ---------- Tarjetas ---------- */
 .tarjeta {
     background: #fff;
     padding: 20px;
@@ -118,9 +111,10 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
-/* ---------- Formularios ---------- */
 .grupo-formulario {
     display: flex;
     flex-direction: column;
@@ -171,7 +165,6 @@ body {
     align-items: flex-end;
 }
 
-/* Campos de archivo */
 .grupo-formulario input[type="file"] {
     width: 100%;
     padding: 8px;
@@ -202,7 +195,6 @@ body {
     background-color: #512830;
 }
 
-/* ---------- Botones ---------- */
 .boton-principal {
     display: inline-block;
     background-color: #3b1d22;
@@ -235,7 +227,6 @@ body {
     color: #fff;
 }
 
-/* ---------- Aviso de envío de documentos (pantalla completa) ---------- */
 .aviso-pantalla {
     position: fixed;
     inset: 0;
@@ -334,7 +325,6 @@ body {
     .aviso-titulo-pantalla { font-size: 1.35rem; }
 }
 
-/* Etiqueta enviado / pendiente junto a cada documento */
 .estado-doc {
     display: inline-block;
     margin-left: 8px;
@@ -354,9 +344,9 @@ body {
     color: #856404;
 }
 
-/* ---------- Panel de coordinación (inicio_sesion2) ---------- */
 .perfil-alumno {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 15px;
     margin-bottom: 25px;
@@ -447,11 +437,6 @@ body {
     font-weight: bold;
 }
 
-/* =========================================================
-   Pantallas del coordinador
-   ========================================================= */
-
-/* Navegación del banner */
 .menu-banner {
     display: flex;
     flex-direction: column;
@@ -473,7 +458,6 @@ body {
     color: #ffffff;
 }
 
-/* Pestañas del expediente */
 .pestanas {
     display: flex;
     gap: 6px;
@@ -500,16 +484,14 @@ body {
     border-bottom-color: #f2a900;
 }
 
-/* Etapas resaltadas */
 .lista-etapas li.activa {
     color: #3b1d22;
     font-weight: bold;
 }
 
-/* Tarjetas de resumen */
 .rejilla-resumen {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 15px;
     margin-bottom: 20px;
 }
@@ -536,7 +518,6 @@ body {
     color: #666;
 }
 
-/* Filtros */
 .filtros {
     display: flex;
     gap: 10px;
@@ -565,7 +546,6 @@ body {
     background-color: #ffffff;
 }
 
-/* Tablas */
 .tabla-contenedor {
     overflow-x: auto;
 }
@@ -615,7 +595,6 @@ body {
     border-bottom: 2px solid #f2a900;
 }
 
-/* Barra de avance pequeña (tabla) */
 .barra-mini {
     width: 110px;
     height: 8px;
@@ -630,7 +609,6 @@ body {
     background-color: #f2a900;
 }
 
-/* Insignias de estado */
 .badge {
     display: inline-block;
     padding: 3px 11px;
@@ -659,7 +637,6 @@ body {
     color: #c62828;
 }
 
-/* Revisión de documentos */
 .form-revision {
     display: flex;
     flex-direction: column;
@@ -708,7 +685,6 @@ body {
     background-color: #a31f1f;
 }
 
-/* Textarea en formularios */
 .grupo-formulario textarea {
     width: 100%;
     padding: 10px;
@@ -726,7 +702,6 @@ body {
     background-color: #ffffff;
 }
 
-/* Historial de seguimiento */
 .linea-tiempo {
     list-style: none;
     border-left: 3px solid #f2a900;
@@ -755,7 +730,6 @@ body {
     color: #888;
 }
 
-/* Nota de documentos pendientes (pantalla de documentos del coordinador) */
 .nota-advertencia {
     background-color: #fff3cd;
     border-left: 5px solid #f2a900;
@@ -771,12 +745,6 @@ body {
     margin: 6px 0 0 20px;
 }
 
-/* =========================================================
-   Páginas que no he visto (conservadas tal cual).
-   Si ya no existen, puedes borrar el bloque completo.
-   ========================================================= */
-
-/* ---------- Pantalla de inicio de sesión ---------- */
 .contenido-centrado {
     display: flex;
     align-items: center;
@@ -842,7 +810,51 @@ body {
     font-weight: 700;
 }
 
-/* ---------- Selección de modalidad ---------- */
+.tarjeta-inicio-sesion .nota-error {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    background-color: #fdecea;
+    border: 1px solid #f5c2c0;
+    border-left: 5px solid #c62828;
+    border-radius: 8px;
+    color: #8e1b1b;
+    font-size: 0.88rem;
+    font-weight: 600;
+    line-height: 1.35;
+    box-shadow: 0 2px 8px rgba(198, 40, 40, 0.12);
+    animation: error-sacudida 0.4s ease-in-out;
+}
+
+.tarjeta-inicio-sesion .nota-error::before {
+    content: "!";
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #c62828;
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes error-sacudida {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tarjeta-inicio-sesion .nota-error {
+        animation: none;
+    }
+}
+
 .tarjeta-modalidad {
     max-width: 750px;
     width: 100%;
@@ -896,7 +908,6 @@ body {
     line-height: 1.4;
 }
 
-/* ---------- Chat alumno / coordinación ---------- */
 .chat-contenedor {
     display: flex;
     flex-direction: column;
@@ -1021,7 +1032,6 @@ body {
     font-size: 0.9rem;
 }
 
-/* Chat: en la vista del coordinador los mensajes propios van a la derecha */
 .chat-vista-coordinacion .fila-mensaje.mensaje-coordinacion {
     align-self: flex-end;
     align-items: flex-end;
@@ -1046,93 +1056,6 @@ body {
     border-radius: 8px 8px 8px 2px;
 }
 
-/* =========================================================
-   Responsive (un solo bloque para toda la hoja)
-   ========================================================= */
-@media (max-width: 768px) {
-    body {
-        flex-direction: column;
-    }
-
-    .banner-lateral,
-    .contenedor-principal {
-        width: 100%;
-    }
-
-    .banner-lateral {
-        min-height: 250px;
-        padding: 30px;
-    }
-
-    .contenedor-principal {
-        padding: 25px;
-    }
-
-    .encabezado-panel {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
-    }
-
-    .rejilla-formulario {
-        grid-template-columns: 1fr;
-    }
-
-    .ancho-completo,
-    .alinear-derecha {
-        grid-column: span 1;
-    }
-
-    .lista-etapas {
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    .grupo-formulario input[type="file"] {
-        font-size: 0.8rem;
-    }
-
-    .grupo-formulario input[type="file"]::file-selector-button {
-        padding: 7px 10px;
-        font-size: 0.8rem;
-    }
-
-    .tarjeta-modalidad {
-        max-width: 100%;
-    }
-
-    .opcion-modalidad {
-        padding: 12px;
-    }
-
-    .fila-mensaje {
-        max-width: 88%;
-    }
-
-    .formulario-chat {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .formulario-chat .boton-principal {
-        width: 100%;
-    }
-
-    .rejilla-resumen {
-        grid-template-columns: 1fr;
-    }
-
-    .menu-banner {
-        flex-direction: row;
-        flex-wrap: wrap;
-    }
-}
-
-/* =========================================================
-   Seguimiento del alumno (pegar en estilos.css, antes del @media)
-   ========================================================= */
-
-/* Mensajes (Django messages: success, error, warning, info) */
 .nota-success,
 .nota-error,
 .nota-warning,
@@ -1169,12 +1092,10 @@ body {
     color: #3b1d22;
 }
 
-/* Documento rechazado resaltado en la tabla */
 .fila-rechazada td {
     background-color: #fff8f7;
 }
 
-/* Volver a subir un documento */
 .form-reenvio {
     display: flex;
     flex-direction: column;
@@ -1206,4 +1127,161 @@ body {
 
 .form-reenvio .boton-secundario {
     align-self: flex-start;
+}
+
+@media (max-width: 1024px) {
+    .banner-lateral {
+        width: 34%;
+        padding: 28px 22px;
+    }
+
+    .contenedor-principal {
+        width: 66%;
+        padding: 28px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    body {
+        flex-direction: column;
+    }
+
+    .banner-lateral,
+    .contenedor-principal {
+        width: 100%;
+    }
+
+    .banner-lateral {
+        padding: 24px;
+        gap: 20px;
+    }
+
+    .contenedor-logo img {
+        max-width: 150px;
+    }
+
+    .contenedor-principal {
+        padding: 20px;
+    }
+
+    .encabezado-panel {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .rejilla-formulario {
+        grid-template-columns: 1fr;
+    }
+
+    .ancho-completo,
+    .alinear-derecha {
+        grid-column: span 1;
+    }
+
+    .grupo-formulario input,
+    .grupo-formulario select,
+    .grupo-formulario textarea,
+    .formulario-chat textarea,
+    .filtros input,
+    .filtros select,
+    .form-revision input[type="text"] {
+        font-size: 1rem;
+    }
+
+    .grupo-formulario input[type="file"] {
+        font-size: 0.8rem;
+    }
+
+    .grupo-formulario input[type="file"]::file-selector-button {
+        padding: 7px 10px;
+        font-size: 0.8rem;
+    }
+
+    .boton-principal,
+    .boton-secundario,
+    .boton-aprobar,
+    .boton-rechazar {
+        min-height: 44px;
+    }
+
+    .lista-etapas {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .filtros input,
+    .filtros select {
+        flex: 1 1 100%;
+        min-width: 0;
+    }
+
+    .tarjeta-modalidad {
+        max-width: 100%;
+    }
+
+    .opcion-modalidad {
+        padding: 12px;
+    }
+
+    .chat-contenedor {
+        max-height: 60vh;
+        max-height: 60dvh;
+    }
+
+    .fila-mensaje {
+        max-width: 88%;
+    }
+
+    .formulario-chat {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .formulario-chat .boton-principal {
+        width: 100%;
+    }
+
+    .menu-banner {
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin-top: 0;
+    }
+
+    .form-revision,
+    .form-reenvio {
+        min-width: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .banner-lateral {
+        padding: 18px 16px;
+    }
+
+    .contenido-banner h2 {
+        font-size: 1.4rem;
+    }
+
+    .contenedor-principal {
+        padding: 14px;
+    }
+
+    .tarjeta {
+        padding: 16px;
+    }
+
+    .tabla th,
+    .tabla td {
+        padding: 8px;
+    }
+
+    .aviso-pantalla {
+        padding: 12px;
+    }
+
+    .aviso-boton {
+        width: 100%;
+    }
 }

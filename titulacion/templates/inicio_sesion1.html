@@ -4,6 +4,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Iniciar Sesión - Colegio ICEM</title>
     <link rel="stylesheet" href="{% static 'estilos.css' %}">
 </head>
@@ -13,14 +14,10 @@
 <aside class="banner-lateral">
     <div class="contenedor-logo">
         <img src="{% static 'imagenes/logo_icem_1.png' %}" alt="Logo Colegio ICEM" class="logo">
-        </div>
     </div>
 
     <div class="contenido-banner">
         <h2>Sistema de Titulación</h2>
-        {% if error %}
-            <p style="color: red;">{{ error }}</p>
-        {% endif %}
         <p>Gestión eficiente y seguimiento formal del egresado.</p>
     </div>
 
@@ -33,6 +30,10 @@
     <div class="tarjeta-inicio-sesion">
         <h3>Iniciar Sesión</h3>
         <p class="subtitulo-inicio-sesion">Ingrese sus credenciales institucionales para acceder al sistema.</p>
+
+        {% if error %}
+            <div class="nota-error" role="alert">{{ error }}</div>
+        {% endif %}
 
         <form method="POST" action="{% url 'inicio' %}">
             {% csrf_token %}
@@ -62,9 +63,6 @@
 
         </form>
 
-        <div class="pie-soporte">
-            ¿Presenta problemas para ingresar? <a href="#">Contactar a Soporte Técnico</a>
-        </div>
     </div>
 </main>
 
